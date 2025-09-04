@@ -1,0 +1,23 @@
+name: map-binning
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - pip
+  - numpy
+  - scipy
+  - xarray
+  - netcdf4
+  - matplotlib
+  - jupyterlab
+  - copernicusmarine
+  - pytest
+  - pytest-cov
+  - black
+  - flake8
+  - mypy
+  - python-dotenv
+  - pip:
+    - twine
+    - build
