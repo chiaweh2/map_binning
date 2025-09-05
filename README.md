@@ -2,6 +2,8 @@
 
 [![Python Version](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://python.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![CI/CD Pipeline](https://github.com/chiaweh2/map_binning/actions/workflows/ci.yml/badge.svg)](https://github.com/chiaweh2/map_binning/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/chiaweh2/map_binning/branch/main/graph/badge.svg)](https://codecov.io/gh/chiaweh2/map_binning)
 
 A Python package for spatial resampling and binning of geospatial data, specifically designed for oceanographic datasets. This tool enables efficient downsampling of high-resolution gridded data onto coarser grids while preserving spatial accuracy through intelligent neighborhood averaging.
 
