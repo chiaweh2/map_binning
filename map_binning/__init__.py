@@ -2,6 +2,7 @@
 
 __version__ = "0.1.0"
 
-from .main import main
+from .binning import Binning
+from .index_store import save, load, PickleHandler
 
-__all__ = ["main", "__version__"]
+__all__ = ["Binning", "save", "load", "PickleHandler", "__version__"]
