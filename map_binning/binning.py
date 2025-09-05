@@ -141,8 +141,8 @@ class Binning:
 
         # Initialize output array
         output_shape = (len(self.ds_low[self.ydim_name]), len(self.ds_low[self.xdim_name]))
-        if 'time' in self.ds_high.dims:
-            output_shape = (len(self.ds_high.time),) + output_shape
+        if 'time' in self.ds_high[self.var_name].dims:
+            output_shape = (len(self.ds_high[self.var_name].time),) + output_shape
             output = np.full(output_shape, np.nan)
         else:
             output = np.full(output_shape, np.nan)
@@ -170,7 +170,7 @@ class Binning:
                 # Extract values from high-res points
                 lat_idx, lon_idx = zip(*high_indices)
 
-                if 'time' in self.ds_high.dims:
+                if 'time' in self.ds_high[self.var_name].dims:
                     # Handle time dimension
                     values = high_data[:, lat_idx, lon_idx]
                     # Calculate mean ignore NaN across spatial dimensions, preserving time
@@ -180,9 +180,9 @@ class Binning:
                     output[i, j] = np.nanmean(values)
 
         # Create output DataArray with proper coordinates
-        if 'time' in self.ds_high.dims:
+        if 'time' in self.ds_high[self.var_name].dims:
             coords = {
-                'time': self.ds_high.time,
+                'time': self.ds_high[self.var_name].time,
                 self.ydim_name: self.ds_low[self.ydim_name],
                 self.xdim_name: self.ds_low[self.xdim_name]
             }
