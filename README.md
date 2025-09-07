@@ -27,6 +27,20 @@ The package uses k-d tree algorithms for fast spatial queries and supports both 
 - **Memory Efficient**: Processes large datasets without excessive memory usage
 - **Oceanographic Focus**: Optimized for CMEMS and similar oceanographic data formats
 
+## Installation
+
+### From PyPI (Recommended)
+
+```bash
+pip install map-binning
+```
+
+### With optional dependencies for development
+
+```bash
+pip install map-binning[dev]
+```
+
 ## Developer Installation
 
 ### Using conda environment
