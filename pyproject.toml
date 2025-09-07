@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "map-binning"
-version = "0.2.0"
+version = "0.2.1"
 description = "A map binning tool for spatial resampling"
 authors = [{name = "Chia-Wei Hsu", email = "chiaweh2@uci.edu"}]
 readme = "README.md"
