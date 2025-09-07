@@ -23,7 +23,7 @@ class PickleHandler:
         self,
         index_dict: Dict[Any, Any],
         filename: str,
-        location: Optional[Union[str, Path]] = None
+        location: Optional[Union[str, Path]] = None,
     ) -> Path:
         """
         Save indexing dictionary to pickle file.
@@ -53,8 +53,8 @@ class PickleHandler:
             raise ValueError("index_dict must be a dictionary")
 
         # Ensure filename has .pkl extension
-        if not filename.endswith('.pkl'):
-            filename += '.pkl'
+        if not filename.endswith(".pkl"):
+            filename += ".pkl"
 
         # Determine save location
         save_dir = Path(location) if location else self.default_dir
@@ -62,7 +62,7 @@ class PickleHandler:
 
         file_path = save_dir / filename
         try:
-            with open(file_path, 'wb') as f:
+            with open(file_path, "wb") as f:
                 pickle.dump(index_dict, f, protocol=pickle.HIGHEST_PROTOCOL)
 
             logger.info("Successfully saved index dictionary to %s", file_path)
@@ -73,9 +73,7 @@ class PickleHandler:
             raise OSError(f"Unable to save pickle file: {e}") from e
 
     def load_index_dict(
-        self,
-        filename: str,
-        location: Optional[Union[str, Path]] = None
+        self, filename: str, location: Optional[Union[str, Path]] = None
     ) -> Dict[Any, Any]:
         """
         Load indexing dictionary from pickle file.
@@ -102,8 +100,8 @@ class PickleHandler:
             If unable to load file.
         """
         # Ensure filename has .pkl extension
-        if not filename.endswith('.pkl'):
-            filename += '.pkl'
+        if not filename.endswith(".pkl"):
+            filename += ".pkl"
 
         # Determine load location
         load_dir = Path(location) if location else self.default_dir
@@ -113,11 +111,13 @@ class PickleHandler:
             raise FileNotFoundError(f"Pickle file not found: {file_path}")
 
         try:
-            with open(file_path, 'rb') as f:
+            with open(file_path, "rb") as f:
                 loaded_data = pickle.load(f)
 
             if not isinstance(loaded_data, dict):
-                raise ValueError(f"Loaded object is not a dictionary, got {type(loaded_data)}")
+                raise ValueError(
+                    f"Loaded object is not a dictionary, got {type(loaded_data)}"
+                )
 
             logger.info("Successfully loaded index dictionary from %s", file_path)
             return loaded_data
@@ -131,7 +131,7 @@ class PickleHandler:
 def save(
     index_dict: Dict[Any, Any],
     filename: str,
-    location: Optional[Union[str, Path]] = None
+    location: Optional[Union[str, Path]] = None,
 ) -> Path:
     """
     Save indexing dictionary to a pickle file.
@@ -153,10 +153,8 @@ def save(
     handler = PickleHandler()
     return handler.save_index_dict(index_dict, filename, location)
 
-def load(
-    filename: str,
-    location: Optional[Union[str, Path]] = None
-) -> Dict[Any, Any]:
+
+def load(filename: str, location: Optional[Union[str, Path]] = None) -> Dict[Any, Any]:
     """
     Load indexing dictionary from a pickle file.
 

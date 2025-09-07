@@ -40,7 +40,7 @@ dev = [
 ]
 
 [tool.black]
-line-length = 127
+line-length = 88
 target-version = ['py311']
 include = '\.pyi?$'
 extend-exclude = '''
@@ -65,7 +65,7 @@ python_functions = ["test_*"]
 
 [tool.isort]
 profile = "black"
-line_length = 127
+line_length = 88
 multi_line_output = 3
 include_trailing_comma = true
 force_grid_wrap = 0

@@ -4,10 +4,11 @@ from scipy.spatial import cKDTree
 import xarray as xr
 from map_binning.index_store import save, load
 
+
 class Binning:
     """
     Class for binning high-resolution data onto a low-resolution grid.
-    
+
     Parameters
     ----------
     ds_high : xr.Dataset
@@ -27,19 +28,31 @@ class Binning:
     Methods
     -------
     create_binning_index()
-        Creates a mapping from each low-resolution grid point to the 
+        Creates a mapping from each low-resolution grid point to the
         indices of high-resolution grid points within the specified search radius.
+
+    Examples
+    --------
+    >>> import xarray as xr
+    >>> from map_binning.binning import Binning
+    >>> ds_high = xr.open_dataset('high_res_data.nc')
+    >>> ds_low = xr.open_dataset('low_res_grid.nc')
+    >>> binning = Binning(ds_high, ds_low, var_name='temperature')
+    >>> binning_index = binning.create_binning_index()
+    >>> binned_data = binning.mean_binning()
+    >>> print(binned_data)
+    xr.DataArray with binned mean values on the low-resolution grid.
     """
 
     def __init__(
-            self,
-            ds_high:xr.Dataset,
-            ds_low:xr.Dataset,
-            var_name:str,
-            xdim_name:str = 'lon',
-            ydim_name:str = 'lat',
-            search_radius=None
-        ):
+        self,
+        ds_high: xr.Dataset,
+        ds_low: xr.Dataset,
+        var_name: str,
+        xdim_name: str = "lon",
+        ydim_name: str = "lat",
+        search_radius=None,
+    ):
         self.ds_high = ds_high
         self.ds_low = ds_low
         self.var_name = var_name
@@ -55,7 +68,7 @@ class Binning:
         Returns
         -------
         dict
-            A dictionary mapping each low-res grid point to 
+            A dictionary mapping each low-res grid point to
             a list of high-res points within the search radius.
 
         """
@@ -110,11 +123,11 @@ class Binning:
         return binning_index
 
     def mean_binning(
-            self,
-            precomputed_binning_index:bool = False,
-            pickle_filename=None,
-            pickle_location=None
-        ):
+        self,
+        precomputed_binning_index: bool = False,
+        pickle_filename=None,
+        pickle_location=None,
+    ):
         """
         Apply the precomputed binning index to aggregate high-res data.
 
@@ -140,8 +153,11 @@ class Binning:
         """
 
         # Initialize output array
-        output_shape = (len(self.ds_low[self.ydim_name]), len(self.ds_low[self.xdim_name]))
-        if 'time' in self.ds_high[self.var_name].dims:
+        output_shape = (
+            len(self.ds_low[self.ydim_name]),
+            len(self.ds_low[self.xdim_name]),
+        )
+        if "time" in self.ds_high[self.var_name].dims:
             output_shape = (len(self.ds_high[self.var_name].time),) + output_shape
             output = np.full(output_shape, np.nan)
         else:
@@ -170,7 +186,7 @@ class Binning:
                 # Extract values from high-res points
                 lat_idx, lon_idx = zip(*high_indices)
 
-                if 'time' in self.ds_high[self.var_name].dims:
+                if "time" in self.ds_high[self.var_name].dims:
                     # Handle time dimension
                     values = high_data[:, lat_idx, lon_idx]
                     # Calculate mean ignore NaN across spatial dimensions, preserving time
@@ -180,37 +196,18 @@ class Binning:
                     output[i, j] = np.nanmean(values)
 
         # Create output DataArray with proper coordinates
-        if 'time' in self.ds_high[self.var_name].dims:
+        if "time" in self.ds_high[self.var_name].dims:
             coords = {
-                'time': self.ds_high[self.var_name].time,
+                "time": self.ds_high[self.var_name].time,
                 self.ydim_name: self.ds_low[self.ydim_name],
-                self.xdim_name: self.ds_low[self.xdim_name]
+                self.xdim_name: self.ds_low[self.xdim_name],
             }
-            dims = ['time', self.ydim_name, self.xdim_name]
+            dims = ["time", self.ydim_name, self.xdim_name]
         else:
             coords = {
                 self.ydim_name: self.ds_low[self.ydim_name],
-                self.xdim_name: self.ds_low[self.xdim_name]
+                self.xdim_name: self.ds_low[self.xdim_name],
             }
             dims = [self.ydim_name, self.xdim_name]
 
         return xr.DataArray(output, coords=coords, dims=dims, name=self.var_name)
-
-# ########### testing code ###########
-# data_dir = '/scratch/chsu/CMEMS/'
-# data_names = [
-#     'nrt_global_allsat_phy_l4_20241201_20241207.nc',
-#     'nrt_global_allsat_phy_l4_20240102_20240108.nc'
-# ]
-
-# ds_low1 = xr.open_dataset(data_dir + data_names[1])
-# ds_high1 = xr.open_dataset(data_dir + data_names[0])
-
-# class_bin = Binning(
-#      ds_low1, ds_high1,var_name='sla', xdim_name='longitude', ydim_name='latitude'
-# )
-# da = class_bin.mean_binning(
-#     precomputed_binning_index=False,
-#     pickle_filename="cmems_nrt_coastal_bin.pkl",
-#     pickle_location="../pickle_folder"
-# )

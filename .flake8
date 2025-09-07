@@ -1,6 +1,6 @@
 # Flake8 configuration
 [flake8]
-max-line-length = 127
+max-line-length = 88
 exclude = 
     .git,
     __pycache__,
