@@ -1,8 +1,10 @@
-import pytest
-import numpy as np
-import xarray as xr
 import os
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, patch
+
+import numpy as np
+import pytest
+import xarray as xr
+
 from map_binning.binning import Binning
 
 

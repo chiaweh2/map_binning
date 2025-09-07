@@ -1,8 +1,10 @@
 import os
+
 import numpy as np
-from scipy.spatial import cKDTree
 import xarray as xr
-from map_binning.index_store import save, load
+from scipy.spatial import cKDTree
+
+from map_binning.index_store import load, save
 
 
 class Binning:

@@ -1,6 +1,6 @@
 import map_binning
 from map_binning.binning import Binning
-from map_binning.index_store import save, load, PickleHandler
+from map_binning.index_store import PickleHandler, load, save
 
 
 def test_package_version():

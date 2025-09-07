@@ -15,6 +15,6 @@ except importlib.metadata.PackageNotFoundError:
     __version__ = "0.1.0"
 
 from .binning import Binning
-from .index_store import save, load, PickleHandler
+from .index_store import PickleHandler, load, save
 
 __all__ = ["Binning", "save", "load", "PickleHandler", "__version__"]

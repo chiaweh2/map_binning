@@ -1,9 +1,11 @@
-import pytest
-import numpy as np
 import os
 import pickle
 from pathlib import Path
-from map_binning.index_store import PickleHandler, save, load
+
+import numpy as np
+import pytest
+
+from map_binning.index_store import PickleHandler, load, save
 
 
 @pytest.fixture
