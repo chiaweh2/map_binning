@@ -145,7 +145,7 @@ jobs:
     
     - name: Run dependency security scan
       run: |
-        safety check
+        safety scan
     
     - name: Test package functionality
       run: |
