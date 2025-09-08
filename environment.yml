@@ -18,6 +18,10 @@ dependencies:
   - flake8
   - mypy
   - python-dotenv
+  - jupyter-book
+  - sphinx
+  - sphinx-autodoc-typehints
+  - sphinxcontrib-napoleon
   - pip:
     - twine
     - build
