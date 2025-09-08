@@ -233,6 +233,56 @@ def test_mean_binning_save_index(mock_save, test_datasets, temp_dir):
     assert kwargs["location"] == temp_dir
 
 
+def test_mean_binning_with_dict_index(test_datasets):
+    """Test that mean_binning uses provided dictionary index directly."""
+    binning = Binning(
+        ds_high=test_datasets["ds_high"], ds_low=test_datasets["ds_low"], var_name="sla"
+    )
+
+    # Create a custom binning index dictionary
+    # This maps low-res grid points (i,j) to high-res grid point indices
+    custom_index = {
+        (0, 0): [
+            (0, 0),
+            (0, 1),
+            (1, 0),
+        ],  # Map low-res point (0,0) to 3 high-res points
+        (1, 1): [
+            (2, 2),
+            (2, 3),
+            (3, 2),
+        ],  # Map low-res point (1,1) to 3 high-res points
+        (2, 2): [
+            (4, 4),
+            (4, 5),
+            (5, 4),
+        ],  # Map low-res point (2,2) to 3 high-res points
+    }
+
+    # Use the custom index directly
+    result = binning.mean_binning(precomputed_binning_index=custom_index)
+
+    # Check result properties
+    assert isinstance(result, xr.DataArray)
+    assert result.name == "sla"
+    assert result.shape == (5, 5, 5)  # (time, lat, lon)
+
+    # Check that only the specified points have values (not NaN)
+    # The custom index only maps 3 points, so only those should have values
+    non_nan_mask = ~np.isnan(result.values[0, :, :])  # Check first time step
+    assert non_nan_mask[0, 0]  # Point (0,0) should have value
+    assert non_nan_mask[1, 1]  # Point (1,1) should have value
+    assert non_nan_mask[2, 2]  # Point (2,2) should have value
+
+    # Verify that the values are computed correctly as means
+    # For example, point (0,0) should be the mean of high-res points (0,0), (0,1), (1,0)
+    high_data = test_datasets["ds_high"]["sla"].values
+    expected_value_00 = np.mean(
+        [high_data[0, 0, 0], high_data[0, 0, 1], high_data[0, 1, 0]]
+    )
+    assert np.isclose(result.values[0, 0, 0], expected_value_00, rtol=1e-10)
+
+
 @patch("map_binning.binning.load")
 def test_mean_binning_load_index(mock_load, test_datasets, temp_dir):
     """Test that mean_binning loads precomputed index when specified."""
