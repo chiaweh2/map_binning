@@ -125,7 +125,7 @@ class Binning:
 
     def mean_binning(
         self,
-        precomputed_binning_index: bool = False,
+        precomputed_binning_index: bool | dict = False,
         pickle_filename=None,
         pickle_location=None,
     ):
