@@ -242,9 +242,21 @@ def test_mean_binning_with_dict_index(test_datasets):
     # Create a custom binning index dictionary
     # This maps low-res grid points (i,j) to high-res grid point indices
     custom_index = {
-        (0, 0): [(0, 0), (0, 1), (1, 0)],  # Map low-res point (0,0) to 3 high-res points
-        (1, 1): [(2, 2), (2, 3), (3, 2)],  # Map low-res point (1,1) to 3 high-res points
-        (2, 2): [(4, 4), (4, 5), (5, 4)],  # Map low-res point (2,2) to 3 high-res points
+        (0, 0): [
+            (0, 0),
+            (0, 1),
+            (1, 0),
+        ],  # Map low-res point (0,0) to 3 high-res points
+        (1, 1): [
+            (2, 2),
+            (2, 3),
+            (3, 2),
+        ],  # Map low-res point (1,1) to 3 high-res points
+        (2, 2): [
+            (4, 4),
+            (4, 5),
+            (5, 4),
+        ],  # Map low-res point (2,2) to 3 high-res points
     }
 
     # Use the custom index directly
@@ -265,7 +277,9 @@ def test_mean_binning_with_dict_index(test_datasets):
     # Verify that the values are computed correctly as means
     # For example, point (0,0) should be the mean of high-res points (0,0), (0,1), (1,0)
     high_data = test_datasets["ds_high"]["sla"].values
-    expected_value_00 = np.mean([high_data[0, 0, 0], high_data[0, 0, 1], high_data[0, 1, 0]])
+    expected_value_00 = np.mean(
+        [high_data[0, 0, 0], high_data[0, 0, 1], high_data[0, 1, 0]]
+    )
     assert np.isclose(result.values[0, 0, 0], expected_value_00, rtol=1e-10)
 
 
