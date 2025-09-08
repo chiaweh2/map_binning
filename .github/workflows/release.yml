@@ -2,9 +2,7 @@ name: Release Pipeline
 
 on:
   push:
-    tags: ['v*']          # ← Trigger on git tag push
-  release:
-    types: [published]    # ← Trigger on GitHub release creation
+    tags: ['v*']          # Trigger on git tag push/github release tags also trigger
   workflow_dispatch:
 
 jobs:
