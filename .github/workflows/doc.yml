@@ -22,8 +22,10 @@ jobs:
           init-shell: bash
 
       # Build the package documentaion
-      - name: Build Package Documentation
+      - name: Build Jupyter Book
+        shell: bash -l {0}
         run: |
+          micromamba activate map-binning
           jupyter-book build doc/
 
       # Deploy to GitHub Pages
