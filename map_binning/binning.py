@@ -40,8 +40,7 @@ class Binning:
     >>> ds_high = xr.open_dataset('high_res_data.nc')
     >>> ds_low = xr.open_dataset('low_res_grid.nc')
     >>> binning = Binning(ds_high, ds_low, var_name='temperature')
-    >>> binning_index = binning.create_binning_index()
-    >>> binned_data = binning.mean_binning()
+    >>> binned_data = binning.mean_binning(precomputed_binning_index=False)
     >>> print(binned_data)
     xr.DataArray with binned mean values on the low-resolution grid.
     """
@@ -135,19 +134,19 @@ class Binning:
 
         Parameters
         ----------
-        precomputed_binning_index : bool
-            A precomputed binning index mapping high-res points to low-res points.
-            Defaults to False.
+        precomputed_binning_index : bool or dict
+            If bool, determines whether to load or compute the binning index.
+            If dict, uses the provided binning index directly.
         pickle_location : str, optional
             If provided, the binning index will be saved to/loaded from this file.
         pickle_filename : str, optional
             If provided, the binning index will be saved to/loaded from this file.
 
-
         Returns
         -------
         xr.DataArray
             DataArray containing the binned mean values on the low-resolution grid.
+
         Notes
         -----
         This method assumes that the binning index has been computed in advance and that
@@ -167,7 +166,10 @@ class Binning:
 
         high_data = self.ds_high[self.var_name].values
 
-        if precomputed_binning_index:
+        # Accept either bool or dict for precomputed_binning_index
+        if isinstance(precomputed_binning_index, dict):
+            binning_index = precomputed_binning_index
+        elif precomputed_binning_index is True:
             binning_index = load(filename=pickle_filename, location=pickle_location)
         else:
             binning_index = self.create_binning_index()
