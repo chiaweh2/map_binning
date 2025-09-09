@@ -24,8 +24,9 @@ class Binning:
     ydim_name : str, optional
         Name of the y (latitude) dimension in the datasets. Default is 'lat'.
     search_radius : float or None, optional
-        Radius in degrees to search for high-resolution points around each low-resolution grid point.
-        If None, the radius is automatically calculated based on the spacing of the low-resolution grid.
+        Radius in degrees to search for high-resolution points around each
+        low-resolution grid point. If None, the radius is automatically 
+        calculated based on the spacing of the low-resolution grid.
 
     Methods
     -------
@@ -33,13 +34,21 @@ class Binning:
         Creates a mapping from each low-resolution grid point to the
         indices of high-resolution grid points within the specified search radius.
 
+    mean_binning()
+        Applies the binning index to compute the mean of high-resolution data
+        for each low-resolution grid point.
+
     Examples
     --------
     >>> import xarray as xr
     >>> from map_binning.binning import Binning
     >>> ds_high = xr.open_dataset('high_res_data.nc')
     >>> ds_low = xr.open_dataset('low_res_grid.nc')
-    >>> binning = Binning(ds_high, ds_low, var_name='temperature')
+    >>> binning = Binning(
+    ...     ds_high,
+    ...     ds_low,
+    ...     var_name='temperature'
+    ... )
     >>> binned_data = binning.mean_binning(precomputed_binning_index=False)
     >>> print(binned_data)
     xr.DataArray with binned mean values on the low-resolution grid.
@@ -82,11 +91,11 @@ class Binning:
         # check high-res is having more grid than low-res
         if len(high_lats) < len(low_lats):
             raise ValueError(
-                "High-resolution dataset latitude must have more grid points than low-resolution dataset."
+                "High-resolution latitude must have more grid points than low-resolution."
             )
         if len(high_lons) < len(low_lons):
             raise ValueError(
-                "High-resolution dataset longitude must have more grid points than low-resolution dataset."
+                "High-resolution longitude must have more grid points than low-resolution."
             )
 
         # Create meshgrids for high-res points
