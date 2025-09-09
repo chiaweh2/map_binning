@@ -1,4 +1,4 @@
-# Welcome to the Map Binning Tool Documentation
+# Map Binning Tool Documentation
 
 Map Binning is a Python package for efficient spatial resampling using binning methods. It provides tools for transforming high-resolution geospatial data to low-resolution grids with proper handling of coordinate systems and time dimensions.
 

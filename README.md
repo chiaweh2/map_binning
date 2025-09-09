@@ -29,7 +29,13 @@ The package uses k-d tree algorithms for fast spatial queries and supports both 
 
 ## Installation
 
-### From PyPI (Recommended)
+### From conda-forge (Recommended)
+
+```bash
+conda install -c conda-forge map-binning
+```
+
+### From PyPI
 
 ```bash
 pip install map-binning
@@ -40,6 +46,7 @@ pip install map-binning
 ```bash
 pip install map-binning[dev]
 ```
+
 
 ## Developer Installation
 
