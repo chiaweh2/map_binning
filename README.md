@@ -1,5 +1,7 @@
 # Map Binning Tool
 
+[![Conda version](https://img.shields.io/conda/vn/conda-forge/map-binning.svg)](https://anaconda.org/conda-forge/map-binning)
+[![PyPI version](https://img.shields.io/pypi/v/map-binning.svg)](https://pypi.org/project/map-binning/)
 [![Python Version](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://python.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![CI/CD Pipeline](https://github.com/chiaweh2/map_binning/actions/workflows/ci.yml/badge.svg)](https://github.com/chiaweh2/map_binning/actions/workflows/ci.yml)
