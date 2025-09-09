@@ -32,8 +32,8 @@ jobs:
       run: |
         pytest tests/ -v --cov=map_binning --cov-report=xml --cov-report=term --cov-fail-under=80
 
-  build-and-publish:
-    name: Build and Publish to PyPI
+  build-package:
+    name: Build Package
     runs-on: ubuntu-latest
     needs: release-test
     
@@ -59,16 +59,61 @@ jobs:
       run: |
         twine check dist/*
     
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: python-package-distributions
+        path: dist/
+
+  publish-to-testpypi:
+    name: Publish to Test PyPI
+    runs-on: ubuntu-latest
+    needs: build-package
+    
+    # Environment configuration for Test PyPI
+    environment:
+      name: PyPI testing
+      url: https://test.pypi.org/project/map-binning/
+    
+    # Permissions for OIDC
+    permissions:
+      id-token: write  # OIDC for PyPI trusted publishing
+      contents: read
+    
+    steps:
+    - name: Download build artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: python-package-distributions
+        path: dist/
+    
     - name: Publish to Test PyPI
-      env:
-        TWINE_USERNAME: __token__
-        TWINE_PASSWORD: ${{ secrets.TEST_PYPI_API_TOKEN }}
-      run: |
-        twine upload --repository testpypi dist/* --skip-existing
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        repository-url: https://test.pypi.org/legacy/
+        skip-existing: true
+
+  publish-to-pypi:
+    name: Publish to PyPI
+    runs-on: ubuntu-latest
+    needs: [build-package, publish-to-testpypi]
+    
+    # Environment configuration for PyPI
+    environment:
+      name: PyPI production
+      url: https://pypi.org/project/map-binning/
+    
+    # Permissions for OIDC
+    permissions:
+      id-token: write  # OIDC for PyPI trusted publishing
+      contents: read
+    
+    steps:
+    - name: Download build artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: python-package-distributions
+        path: dist/
     
     - name: Publish to PyPI
-      env:
-        TWINE_USERNAME: __token__
-        TWINE_PASSWORD: ${{ secrets.PIPY_TOKEN }}
-      run: |
-        twine upload dist/*
+      uses: pypa/gh-action-pypi-publish@release/v1
