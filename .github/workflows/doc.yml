@@ -8,6 +8,12 @@ on:
 jobs:
   docbuild:
     runs-on: ubuntu-latest
+    
+    # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
 
     steps:
       # Checkout the repository
@@ -28,9 +34,13 @@ jobs:
           micromamba activate map-binning
           jupyter-book build doc/
 
+      # Upload Pages artifact
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: doc/_build/html
+
       # Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: doc/_build/html
+        id: deployment
+        uses: actions/deploy-pages@v4
