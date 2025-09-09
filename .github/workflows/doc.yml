@@ -32,6 +32,13 @@ jobs:
           environment-file: environment.yml
           init-shell: bash
 
+      # Install the package in development mode
+      - name: Install package in development mode
+        shell: bash -l {0}
+        run: |
+          micromamba activate map-binning
+          pip install -e .
+          
       # Build the package documentaion
       - name: Build Jupyter Book
         shell: bash -l {0}
