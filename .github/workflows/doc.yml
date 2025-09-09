@@ -9,6 +9,11 @@ jobs:
   docbuild:
     runs-on: ubuntu-latest
     
+    # Environment required for GitHub Pages deployment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    
     # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
     permissions:
       contents: read
