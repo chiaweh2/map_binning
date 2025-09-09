@@ -13,10 +13,10 @@ This section provides detailed documentation for all classes, functions, and met
    :show-inheritance:
 
 ```
-### Index Store Module
+### Index store (pickle file) for reuse
 
 ```{eval-rst}
-.. autoclass:: map_binning.index_store
+.. autoclass:: map_binning.PickleHandler
    :members:
    :undoc-members:
    :show-inheritance:
