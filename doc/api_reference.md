@@ -7,11 +7,13 @@ This section provides detailed documentation for all classes, functions, and met
 ### Binning
 
 ```{eval-rst}
-.. autoclass:: map_binning.Binning
+.. autoclass::  map_binning.Binning
    :members:
    :undoc-members:
    :show-inheritance:
+
 ```
+
 
 The main class for creating and managing spatial binning operations.
 

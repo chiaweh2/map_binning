@@ -256,7 +256,7 @@ print(f"Std: {result_mean.temperature.std().values:.2f}")
 
 Now that you've completed the basic tutorial, you can:
 
-1. Explore the [API Reference](api_reference.md) for advanced features
+1. Explore the [API Reference](../api_reference.md) for advanced features
 2. Check out more complex examples with real-world data
 3. Learn about optimization techniques for large datasets
 4. Integrate Map Binning into your analysis workflows
