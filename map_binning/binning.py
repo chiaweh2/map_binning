@@ -25,7 +25,7 @@ class Binning:
         Name of the y (latitude) dimension in the datasets. Default is 'lat'.
     search_radius : float or None, optional
         Radius in degrees to search for high-resolution points around each
-        low-resolution grid point. If None, the radius is automatically 
+        low-resolution grid point. If None, the radius is automatically
         calculated based on the spacing of the low-resolution grid.
 
     Methods
