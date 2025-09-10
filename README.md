@@ -118,6 +118,27 @@ result = binning.mean_binning(
 )
 ```
 
+### Time Series Processing
+
+The tool automatically handles time dimensions:
+
+```python
+# Works seamlessly with time-varying datasets
+# Input: (time, lat, lon) -> Output: (time, lat_low, lon_low)
+result = binning.mean_binning()
+```
+## Configuration for CMEMS data download
+
+### Environment Variables
+
+Copy `.env.template` to `.env` and configure:
+
+```bash
+# Copernicus Marine Service credentials (if using CMEMS data)
+COPERNICUSMARINE_SERVICE_USERNAME=<your_username>
+COPERNICUSMARINE_SERVICE_PASSWORD=<your_password>
+```
+
 ## API Reference
 
 ### Binning Class
@@ -159,34 +180,13 @@ map_binning/
 ├── tests/                 # Unit tests
 │   ├── __init__.py
 │   └── ...
-├── pickle_folder/         # Default location for cached indices
 ├── pyproject.toml         # Project configuration
 ├── environment.yml        # Conda environment specification
 ├── .env.template          # Environment variables template
 └── README.md              # This file
 ```
 
-## Configuration for CMEMS data download
 
-### Environment Variables
-
-Copy `.env.template` to `.env` and configure:
-
-```bash
-# Copernicus Marine Service credentials (if using CMEMS data)
-COPERNICUSMARINE_SERVICE_USERNAME=<your_username>
-COPERNICUSMARINE_SERVICE_PASSWORD=<your_password>
-```
-
-### Time Series Processing
-
-The tool automatically handles time dimensions:
-
-```python
-# Works seamlessly with time-varying datasets
-# Input: (time, lat, lon) -> Output: (time, lat_low, lon_low)
-result = binning.mean_binning()
-```
 
 ## Performance Considerations
 
