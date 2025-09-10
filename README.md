@@ -289,12 +289,12 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 If you use this tool in your research, please cite:
 
 ```bibtex
-@software{map_binning_2024,
+@software{map_binning_2025,
   author = {Chia-Wei Hsu},
   title = {Map Binning Tool: Spatial Resampling for Oceanographic Data},
   url = {https://github.com/chiaweh2/map_binning},
-  version = {0.1.0},
-  year = {2024}
+  version = {0.3.2},
+  year = {2025}
 }
 ```
 
