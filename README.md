@@ -9,6 +9,21 @@
 
 A Python package for spatial resampling and binning of geospatial data, specifically designed for oceanographic datasets. This tool enables efficient downsampling of high-resolution gridded data onto coarser grids while preserving spatial accuracy through intelligent neighborhood averaging.
 
+## Citation
+[![DOI](https://zenodo.org/badge/1050687709.svg)](https://doi.org/10.5281/zenodo.17095448)
+
+If you use this tool in your research, please cite:
+
+```bibtex
+@software{map_binning_2025,
+  author = {Chia-Wei Hsu},
+  title = {Map Binning Tool: Spatial Resampling for Oceanographic Data},
+  url = {https://github.com/chiaweh2/map_binning},
+  doi = {10.5281/zenodo.17095448},
+  year = {2025}
+}
+```
+
 ## Overview
 
 The Map Binning Tool provides a robust solution for spatial data aggregation, particularly useful for:
@@ -51,16 +66,6 @@ pip install map-binning[dev]
 
 
 ## Developer Installation
-
-### Using conda environment
-```bash
-# Create and activate conda environment
-conda env create -f environment.yml
-conda activate map-binning
-
-# Install the package in development mode
-pip install -e .
-```
 
 ### From source
 ```bash
@@ -173,52 +178,6 @@ COPERNICUSMARINE_SERVICE_USERNAME=<your_username>
 COPERNICUSMARINE_SERVICE_PASSWORD=<your_password>
 ```
 
-### Dependencies
-
-Core dependencies:
-- `numpy`: Numerical computing
-- `scipy`: Scientific computing (k-d tree algorithms)
-- `xarray`: Labeled multi-dimensional arrays
-- `netcdf4`: NetCDF file I/O
-- `python-dotenv`: Environment variable management
-
-Development dependencies:
-- `pytest`: Unit testing framework
-- `black`: Code formatting
-- `flake8`: Code linting
-- `mypy`: Static type checking
-
-## Examples
-
-### Working with CMEMS Data
-
-```python
-import xarray as xr
-from map_binning import Binning
-
-# Example with Copernicus Marine data
-ds_high = xr.open_dataset('cmems_high_res_sla.nc')
-ds_low = xr.open_dataset('cmems_low_res_grid.nc')
-
-# Initialize for sea level anomaly processing
-sla_binning = Binning(
-    ds_high=ds_high,
-    ds_low=ds_low,
-    var_name='sla',
-    xdim_name='longitude',
-    ydim_name='latitude'
-)
-
-# Process and cache the result
-binned_sla = sla_binning.mean_binning(
-    pickle_filename="cmems_sla_index.pkl",
-    pickle_location="./cache"
-)
-
-# Save the result
-binned_sla.to_netcdf('binned_sla_data.nc')
-```
-
 ### Time Series Processing
 
 The tool automatically handles time dimensions:
@@ -267,36 +226,11 @@ black map_binning/
 mypy map_binning/
 ```
 
-## Testing
-
-```bash
-# Run all tests
-pytest
-
-# Run with coverage
-pytest --cov=map_binning
-
-# Run specific test file
-pytest tests/test_main.py
-```
 
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Citation
-
-If you use this tool in your research, please cite:
-
-```bibtex
-@software{map_binning_2025,
-  author = {Chia-Wei Hsu},
-  title = {Map Binning Tool: Spatial Resampling for Oceanographic Data},
-  url = {https://github.com/chiaweh2/map_binning},
-  version = {0.3.2},
-  year = {2025}
-}
-```
 
 ## Support
 
