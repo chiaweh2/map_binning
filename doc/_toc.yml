@@ -9,6 +9,7 @@ parts:
 - caption: Getting Started
   chapters:
   - file: content/tutorial
+  - file: content/cemes_example
 
 - caption: Reference
   chapters:

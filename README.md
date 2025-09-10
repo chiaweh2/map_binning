@@ -153,7 +153,7 @@ map_binning/
 │   └── cmems_nrt_coastal_bin.ipynb
 ├── tests/                 # Unit tests
 │   ├── __init__.py
-│   └── test_main.py
+│   └── ...
 ├── pickle_folder/         # Default location for cached indices
 ├── pyproject.toml         # Project configuration
 ├── environment.yml        # Conda environment specification

@@ -3,7 +3,7 @@
 
 title: Map Binning Tool
 author: Chia-Wei Hsu
-logo: map-binning-logo.png
+logo: map-binning-logo-circle.png
 
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
