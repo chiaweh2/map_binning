@@ -39,9 +39,12 @@ jobs:
           micromamba activate map-binning
           pip install -e .
           
-      # Build the package documentaion
+      # Build the package documentation
       - name: Build Jupyter Book
         shell: bash -l {0}
+        env:
+          COPERNICUSMARINE_SERVICE_USERNAME: ${{ secrets.COPERNICUSMARINE_SERVICE_USERNAME }}
+          COPERNICUSMARINE_SERVICE_PASSWORD: ${{ secrets.COPERNICUSMARINE_SERVICE_PASSWORD }}
         run: |
           micromamba activate map-binning
           jupyter-book build doc/
