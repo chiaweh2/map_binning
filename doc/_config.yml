@@ -9,6 +9,8 @@ logo: map-binning-logo-circle.png
 # See https://jupyterbook.org/content/execute.html
 execute:
   execute_notebooks: force
+  timeout: -1  # No timeout per cell
+  allow_errors: false
 
 # Sphinx configuration
 sphinx:
