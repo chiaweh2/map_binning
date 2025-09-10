@@ -55,5 +55,20 @@ This documentation is organized into several sections:
 - **Tutorials**: Step-by-step guides for common use cases
 - **API Reference**: Complete reference for all classes and functions
 
+## Citation
+[![DOI](https://zenodo.org/badge/1050687709.svg)](https://doi.org/10.5281/zenodo.17095448)
+
+If you use this tool in your research, please cite:
+
+```bibtex
+@software{map_binning_2025,
+  author = {Chia-Wei Hsu},
+  title = {Map Binning Tool: Spatial Resampling for Oceanographic Data},
+  url = {https://github.com/chiaweh2/map_binning},
+  doi = {10.5281/zenodo.17095448},
+  year = {2025}
+}
+```
+
 ```{tableofcontents}
 ```
